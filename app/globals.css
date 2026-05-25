@@ -1,0 +1,170 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ════════════════════════════════════════════════════════
+   LE PETIT LOUIS · Bistrot Nancy × Art Nouveau
+   ════════════════════════════════════════════════════════ */
+
+:root {
+  --banner-h: 36px;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: #FDFAF4;
+  color: #1B2E20;
+  font-family: var(--font-mulish), system-ui, sans-serif;
+  padding-top: var(--banner-h); /* anti-vol sticky banner */
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Paper grain — chaleur bistrot, très subtil */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 50; /* au-dessus du contenu (z-2), sous la bannière (z-100) et la modale (z-120) */
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: #C4A255;
+  color: #132017;
+}
+
+/* ── Typo helpers ── */
+.font-cardo { font-family: var(--font-cardo), Georgia, serif; }
+.font-mulish { font-family: var(--font-mulish), system-ui, sans-serif; }
+
+.wrap {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 5vw, 56px);
+}
+
+.eyebrow {
+  font-family: var(--font-mulish), sans-serif;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+}
+
+/* ── ARCHE Art Nouveau (la signature visuelle) ──
+   coin haut arrondi en dôme, bas légèrement adouci */
+.frame-arch {
+  border-radius: 49% 49% 10px 10px / 24% 24% 2% 2%;
+  overflow: hidden;
+}
+.frame-arch-soft {
+  border-radius: 42% 42% 10px 10px / 18% 18% 2% 2%;
+  overflow: hidden;
+}
+
+/* Double-filet or autour d'un cadre */
+.gilt {
+  box-shadow:
+    0 0 0 1px rgba(196,162,85,0.9),
+    0 0 0 7px #FDFAF4,
+    0 0 0 8px rgba(196,162,85,0.55),
+    0 26px 50px -24px rgba(19,32,23,0.55);
+}
+.gilt-dark {
+  box-shadow:
+    0 0 0 1px rgba(196,162,85,0.9),
+    0 0 0 7px #132017,
+    0 0 0 8px rgba(196,162,85,0.5),
+    0 26px 50px -22px rgba(0,0,0,0.6);
+}
+
+/* Filet doré simple */
+.rule-gilt {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(196,162,85,0.7) 18%, rgba(196,162,85,0.7) 82%, transparent);
+}
+
+/* Numéro de plat en contour (carte éditoriale) */
+.num-outline {
+  font-family: var(--font-cardo), serif;
+  font-style: italic;
+  -webkit-text-stroke: 1.4px rgba(196,162,85,0.65);
+  color: transparent;
+  line-height: 0.8;
+}
+
+/* Étiquette prix manuscrite façon ardoise */
+.price-tag {
+  font-family: var(--font-cardo), serif;
+  font-style: italic;
+}
+
+/* ── Reveals (IntersectionObserver) ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1),
+              transform 0.85s cubic-bezier(0.16,1,0.3,1);
+  will-change: opacity, transform;
+}
+.reveal.in { opacity: 1; transform: none; }
+.reveal.d1 { transition-delay: 0.1s; }
+.reveal.d2 { transition-delay: 0.2s; }
+.reveal.d3 { transition-delay: 0.3s; }
+.reveal.d4 { transition-delay: 0.4s; }
+.reveal.d5 { transition-delay: 0.5s; }
+
+/* Intro hero — animation CSS pure (indépendante du JS, jamais de hero blanc) */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: none; }
+}
+.intro { opacity: 0; animation: fade-up 0.9s cubic-bezier(0.16,1,0.3,1) forwards; }
+.intro.i1 { animation-delay: 0.08s; }
+.intro.i2 { animation-delay: 0.18s; }
+.intro.i3 { animation-delay: 0.30s; }
+.intro.i4 { animation-delay: 0.44s; }
+.intro.i5 { animation-delay: 0.58s; }
+
+/* Reveal latéral pour la carte éditoriale */
+.reveal-x {
+  opacity: 0;
+  transform: translateX(var(--rx, -32px));
+  transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1),
+              transform 0.9s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal-x.in { opacity: 1; transform: none; }
+
+/* Frame du mur de galerie : redressement au survol */
+.wall-frame {
+  transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s ease;
+}
+.wall-frame:hover {
+  transform: rotate(0deg) translateY(-6px) scale(1.02) !important;
+  z-index: 20;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal, .reveal-x { opacity: 1 !important; transform: none !important; transition: none; }
+  .intro { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .animate-soft-bounce, .animate-sway { animation: none !important; }
+  .wall-frame { transform: none !important; }
+}
+
+/* ════════ ANTI-VOL ════════
+   images non draggables / non sélectionnables */
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+  pointer-events: none;
+}
