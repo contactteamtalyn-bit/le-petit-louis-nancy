@@ -31,6 +31,13 @@ const dishes = [
     price: '19 €',
     img: '/images/plats/plat-04.jpg',
   },
+  {
+    num: '05',
+    name: 'Dessert maison du moment',
+    desc: 'Selon l’inspiration du jour — brioche perdue caramélisée, crémeux, fruits rôtis… Toujours fait maison, toujours de saison. Demandez l’ardoise.',
+    price: '8 €',
+    img: '/images/plats/plat-05.jpg',
+  },
 ]
 
 export function LaCarteSection() {
@@ -88,22 +95,9 @@ export function LaCarteSection() {
           })}
         </div>
 
-        {/* Dessert — l'ardoise du jour */}
-        <div className="reveal mx-auto mt-24 max-w-2xl">
-          <div className="flex justify-center">
-            <Ornement variant="divider" className="h-5 w-[200px] text-miel" />
-          </div>
-          <div className="mt-8 rounded-[28px_28px_14px_14px] bg-bistrot px-8 py-12 text-center shadow-[0_30px_60px_-30px_rgba(19,32,23,0.6)]">
-            <p className="eyebrow text-miel">Et pour finir…</p>
-            <h3 className="mt-4 font-cardo-it text-[1.9rem] leading-tight text-creme sm:text-[2.2rem]">
-              Le dessert maison du moment
-            </h3>
-            <p className="mx-auto mt-5 max-w-md font-mulish text-[15px] font-light leading-relaxed text-creme/70">
-              Tartes, crémeux, fruits rôtis de saison… nos desserts changent au gré de
-              l&apos;inspiration et du marché. Demandez l&apos;ardoise — il y a toujours
-              une gourmandise qui vous attend.
-            </p>
-          </div>
+        {/* Clôture ornementale */}
+        <div className="reveal mt-20 flex justify-center">
+          <Ornement variant="divider" className="h-5 w-[200px] text-miel" />
         </div>
       </div>
     </section>

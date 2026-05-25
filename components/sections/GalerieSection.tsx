@@ -3,11 +3,11 @@ import { SmartImage } from '@/components/SmartImage'
 import { Ornement } from '@/components/Ornement'
 
 // Mur de cadres : rotations + arches alternées (le “wall of frames” du bistrot)
-const photos = Array.from({ length: 11 }, (_, i) => {
+const photos = Array.from({ length: 13 }, (_, i) => {
   const n = String(i + 1).padStart(2, '0')
   return { src: `/images/galerie/galerie-${n}.jpg`, arched: i % 3 === 1 }
 })
-const rotations = [-2.2, 1.6, -1.2, 2, -1.6, 1.2, -2, 1.4, -1.4, 2.1, -1.8]
+const rotations = [-2.2, 1.6, -1.2, 2, -1.6, 1.2, -2, 1.4, -1.4, 2.1, -1.8, 1.5, -1.3]
 
 export function GalerieSection() {
   return (
